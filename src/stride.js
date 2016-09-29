@@ -153,27 +153,28 @@ const ValidationMessages = {
 const SupportedURLPatterns = {
   GET: [
     /^\/collect$/,
-    /^\/collect\/\w+$/,
+    /^\/collect\/[a-zA-Z]\w*$/,
     /^\/process$/,
-    /^\/process\/\w+$/,
+    /^\/process\/[a-zA-Z]\w*$/,
     /^\/analyze$/,
-    /^\/analyze\/\w+$/,
-    /^\/analyze\/\w+\/results$/
+    /^\/analyze\/[a-zA-Z]\w*$/,
+    /^\/analyze\/[a-zA-Z]\w*\/results$/
   ],
   POST: [
     /^\/collect$/,
-    /^\/collect\/\w+$/,
-    /^\/process\/\w+$/,
+    /^\/collect\/[a-zA-Z]\w*$/,
+    /^\/process\/[a-zA-Z]\w*$/,
     /^\/analyze$/,
-    /^\/analyze\/\w+$/
+    /^\/analyze\/[a-zA-Z]\w*$/
   ],
   DELETE: [
-    /^\/collect\/\w+$/,
-    /^\/process\/\w+$/
+    /^\/collect\/[a-zA-Z]\w*$/,
+    /^\/process\/[a-zA-Z]\w*$/,
+    /^\/analyze\/[a-zA-Z]\w*$/
   ],
   GET_STREAM: [
-    /^\/collect\/\w+\/subscribe$/,
-    /^\/process\/\w+\/subscribe$/
+    /^\/collect\/[a-zA-Z]\w*\/subscribe$/,
+    /^\/process\/[a-zA-Z]\w*\/subscribe$/
   ]
 }
 
