@@ -1,5 +1,7 @@
 # stride.js
 
+[![CircleCI](https://circleci.com/gh/pipelinedb/stride.js.svg?style=svg)](https://circleci.com/gh/pipelinedb/stride.js)
+
 Welcome to the JavaScript client for Stride.
 
 ```sh
