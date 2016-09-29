@@ -35,19 +35,19 @@ let Routes = {
         method: req.method,
         headers: req.headers
       }}
-      res.writeHead(200, { 'Content-Type': 'application/json' })
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' })
       res.end(`${JSON.stringify(out)}\n`)
     })
   },
 
   '/v1/collect/error': function (req, res) {
     let out = {message: 'bad request'}
-    res.writeHead(400, { 'Content-Type': 'application/json' })
+    res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' })
     res.end(`${JSON.stringify(out)}\n`)
   },
 
   '/v1/collect/success/subscribe': function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/plain' }) // FIXME: usmanm, is this type correct?
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' })
     let interval = setInterval(() => {
       try {
         res.write(`${generateEvent()}\r\n${generateEvent()}\r\n`)
@@ -62,8 +62,8 @@ let Routes = {
   },
 
   '/v1/collect/error/subscribe': function (req, res) {
-    res.writeHead(500, { 'Content-Type': 'text/plain' })
-    res.end(`Server Error\n`)
+    res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' })
+    res.end(`\n`)
   }
 }
 
