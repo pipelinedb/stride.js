@@ -3,13 +3,13 @@
 Welcome to the JavaScript client for Stride.
 
 ```sh
-npm install --save stride
+npm install --save @pipelinedb/stride
 ```
 
 Then in your project:
 
 ```js
-const Stride = require('stride')
+const Stride = require('@pipelinedb/stride')
 
 let stride = new Stride('mytoken')
 stride.post('/collect/mydata', {some: 'data', ...}).then(({status, response}) => {
