@@ -15,6 +15,46 @@ describe("Stride.js", function () {
     server.close()
   })
 
+  describe("validateURLForMethod()", function () {
+    function validate (method, url) {
+      return stride.validateURLForMethod.bind(stride, method, url)
+    }
+
+    it("fails unless one of the 3 endpoints is specified", function () {
+      expect(validate('GET', 'collect')).to.throw(/leading slash/)
+      expect(validate('GET', '/v1/collect')).to.throw(/omit the version/)
+      expect(validate('GET', '/nope')).to.throw(/\/collect.+endpoints are supported/)
+      expect(validate('GET', '/collect')).not.to.throw()
+      expect(validate('GET', '/process')).not.to.throw()
+      expect(validate('GET', '/analyze')).not.to.throw()
+    })
+
+    it("allows only URLs supported by the API to pass through", function () {
+      expect(validate('GET', '/collect')).not.to.throw()
+      expect(validate('GET', '/collect/abc')).not.to.throw()
+      expect(validate('GET', '/process')).not.to.throw()
+      expect(validate('GET', '/process/abc')).not.to.throw()
+      expect(validate('GET', '/analyze')).not.to.throw()
+      expect(validate('GET', '/analyze/abc')).not.to.throw()
+      expect(validate('GET', '/analyze/abc/results')).not.to.throw()
+
+      expect(validate('POST', '/collect')).not.to.throw()
+      expect(validate('POST', '/collect/abc')).not.to.throw()
+      expect(validate('POST', '/process/abc')).not.to.throw()
+      expect(validate('POST', '/analyze')).not.to.throw()
+      expect(validate('POST', '/analyze/abc')).not.to.throw()
+
+      expect(validate('DELETE', '/collect')).to.throw(/URL not supported/)
+      expect(validate('DELETE', '/collect/abc')).not.to.throw()
+      expect(validate('DELETE', '/process/abc')).not.to.throw()
+
+      expect(validate('GET_STREAM', '/collect')).to.throw(/URL not supported/)
+      expect(validate('GET_STREAM', '/process')).to.throw(/URL not supported/)
+      expect(validate('GET_STREAM', '/collect/a_B_9/subscribe')).not.to.throw()
+      expect(validate('GET_STREAM', '/process/a_B_9/subscribe')).not.to.throw()
+    })
+  })
+
   describe("get()", function () {
     it("gets a successful response", function () {
       return stride.get('/collect/success').then((result) => {

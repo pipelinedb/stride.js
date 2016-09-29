@@ -33,6 +33,7 @@ class Stride {
 
   subscribe (url) {
     const self = this
+    this.validateURLForMethod('GET_STREAM', url)
     return new Promise(function (resolve) {
       let req, stream
       req = self._hyperquest('GET', url, (err, message) => {
@@ -47,7 +48,13 @@ class Stride {
     })
   }
 
+  validateURLForMethod (method, url) {
+    let error = validateURLForMethod(method, url)
+    if (error) throw new Error(`URL ${url} malformed: ${error}`)
+  }
+
   _callAPIMethod (method, url, args) {
+    this.validateURLForMethod(method, url)
     let options = this._getRequestOptions(method, url, args)
     return request(options).then((result) => {
       let message = result[0]
@@ -110,24 +117,64 @@ function SubscribeObjectTransform() {
   })
 }
 
-module.exports = Stride
+function validateURLForMethod (method, url) {
+  let error = validateURL(url)
+  if (error) return error
 
-// GET https://api.stride.io/v1/collect
-// GET https://api.stride.io/v1/collect/commits
-// GET https://api.stride.io/v1/collect/commits/subscribe
-// POST https://api.stride.io/v1/collect - bulk events for multiple streams
-// POST https://api.stride.io/v1/collect/commits
-// DELETE https://api.stride.io/v1/collect/commits
-//
-// GET https://api.stride.io/v1/process
-// GET https://api.stride.io/v1/process/users_per_day
-// GET https://api.stride.io/v1/process/users_per_day/subscribe
-// POST https://api.stride.io/process/users_per_day
-// DELETE https://api.stride.io/v1/process/users_per_day
-//
-// GET https://api.stride.io/analyze/total_commits/results
-// GET https://api.stride.io/v1/analyze
-// GET https://api.stride.io/v1/analyze/total_commits
-// POST https://api.stride.io/analyze
-// POST https://api.stride.io/analyze/total_commits
-// DELETE https://api.stride.io/v1/process/users_per_day
+  let supported = false
+  let patterns = SupportedURLPatterns[method]
+  for (let pattern of patterns) {
+    if (pattern.test(url)) supported = true
+  }
+  if (!supported) return `URL not supported for the ${method} method`
+
+  return null
+}
+
+function validateURL (url) {
+  for (var key in ValidationRegExps) {
+    if (!ValidationRegExps[key].test(url)) return ValidationMessages[key]
+  }
+  return null
+}
+
+const ValidationRegExps = {
+  hasLeadingSlash: /^\//,
+  missingVersionNumber: /^\/[^v]/,
+  isValidEndpoint: /^(\/collect|\/process|\/analyze)/,
+}
+
+const ValidationMessages = {
+  hasLeadingSlash: 'Endpoints should have leading slash. e.g. `/collect`',
+  missingVersionNumber: 'Please omit the version number. e.g. `/collect`',
+  isValidEndpoint: 'Only the `/collect`, `/process`, and `/analyze` endpoints are supported',
+}
+
+const SupportedURLPatterns = {
+  GET: [
+    /^\/collect$/,
+    /^\/collect\/\w+$/,
+    /^\/process$/,
+    /^\/process\/\w+$/,
+    /^\/analyze$/,
+    /^\/analyze\/\w+$/,
+    /^\/analyze\/\w+\/results$/
+  ],
+  POST: [
+    /^\/collect$/,
+    /^\/collect\/\w+$/,
+    /^\/process\/\w+$/,
+    /^\/analyze$/,
+    /^\/analyze\/\w+$/
+  ],
+  DELETE: [
+    /^\/collect\/\w+$/,
+    /^\/process\/\w+$/
+  ],
+  GET_STREAM: [
+    /^\/collect\/\w+\/subscribe$/,
+    /^\/process\/\w+\/subscribe$/
+  ]
+}
+
+module.exports = Stride
