@@ -83,4 +83,50 @@ describe("Stride.js", function () {
       })
     })
   })
+
+  describe("subscribe()", function () {
+    it("subscribes to events until the server closes the connection", function (done) {
+      stride.subscribe('/collect/success/subscribe').then((result) => {
+        let status = result.status, stream = result.stream
+        expect(status).to.equal(200)
+
+        let items = []
+        stream.on('data', (obj) => items.push(obj))
+        stream.on('end', () => {
+          expect(items.length).to.be.greaterThan(2)
+          expect(items[0]['$timestamp']).to.be.ok
+          expect(items[0].repo).to.equal('pipelinedb/pipelinedb')
+          done()
+        })
+      })
+    })
+
+    it("can close the connection with stream.destroy()", function (done) {
+      stride.subscribe('/collect/success/subscribe').then((result) => {
+        let status = result.status, stream = result.stream
+        expect(status).to.equal(200)
+
+        let items = []
+        stream.on('data', (obj) => {
+          items.push(obj)
+          stream.destroy()
+        })
+        stream.on('end', () => {
+          expect(items.length).to.equal(2)
+          expect(items[0]['$timestamp']).to.be.ok
+          expect(items[0].repo).to.equal('pipelinedb/pipelinedb')
+          done()
+        })
+      })
+    })
+
+    it("does not return a stream when non-200 status", function () {
+      return stride.subscribe('/collect/error/subscribe').then((result) => {
+        let status = result.status, stream = result.stream
+        expect(status).to.equal(500)
+        expect(stream).not.to.be.ok
+      })
+    })
+  })
+
 })

@@ -21,6 +21,7 @@ module.exports = class MockServer {
   }
 
   handleRequest (req, res) {
+    // Check out this micro webframework. Next big thing, I can feel it.
     return Routes[req.url](req, res)
   }
 }
@@ -46,9 +47,23 @@ let Routes = {
   },
 
   '/v1/collect/success/subscribe': function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/plain' })
-    setInterval(() => res.write(`${generateEvent()}\r\n${generateEvent()}\r\n`), 10)
-    setTimeout(() => res.end(`\n`), 100)
+    res.writeHead(200, { 'Content-Type': 'text/plain' }) // FIXME: usmanm, is this type correct?
+    let interval = setInterval(() => {
+      try {
+        res.write(`${generateEvent()}\r\n${generateEvent()}\r\n`)
+      } catch (e) {
+        clearInterval(interval)
+      }
+    }, 10)
+    setTimeout(() => {
+      clearInterval(interval)
+      res.end(`\n`)
+    }, 100)
+  },
+
+  '/v1/collect/error/subscribe': function (req, res) {
+    res.writeHead(500, { 'Content-Type': 'text/plain' })
+    res.end(`Server Error\n`)
   }
 }
 

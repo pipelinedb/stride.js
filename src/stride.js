@@ -31,18 +31,20 @@ class Stride {
     return this._callAPIMethod('DELETE', url)
   }
 
-  subscribe (url, optionalCallback) {
-    let req = this._hyperquest('GET', url, (err, res) => {
-      console.log('err?', err);
-      console.log('res?', res);
+  subscribe (url) {
+    const self = this
+    return new Promise(function (resolve) {
+      let req, stream
+      req = self._hyperquest('GET', url, (err, message) => {
+        let status = message.statusCode, stream = null
+        if (status === 200) {
+          stream = req.pipe(SubscribeObjectTransform())
+          let streamDestroy = stream.destroy.bind(stream)
+          stream.destroy = () => req.destroy()
+        }
+        resolve({status, stream})
+      })
     })
-    let stream = req.pipe(SubscribeObjectTransform)
-    stream.destroy = () => req.destroy()
-    if (optionalCallback) {
-      stream.on('data', (data) => optionalCallback(null, data))
-      req.on('error', (res) => optionalCallback(res))
-    }
-    return stream
   }
 
   _callAPIMethod (method, url, args) {
@@ -95,16 +97,18 @@ class Stride {
   }
 }
 
-const SubscribeObjectTransform = through2.obj(function (chunk, encoding, callback) {
-  let objects = chunk.toString('utf8').trim().split('\r\n')
-  for (let obj of objects) {
-    if (obj = obj.trim()) {
-      obj = JSON.parse(obj)
-      if (obj && typeof obj === 'object') this.push(obj)
+function SubscribeObjectTransform() {
+  return through2.obj(function (chunk, encoding, callback) {
+    let objects = chunk.toString('utf8').trim().split('\r\n')
+    for (let obj of objects) {
+      if (obj = obj.trim()) {
+        obj = JSON.parse(obj)
+        if (obj && typeof obj === 'object') this.push(obj)
+      }
     }
-  }
-  callback()
-})
+    callback()
+  })
+}
 
 module.exports = Stride
 
