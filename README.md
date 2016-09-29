@@ -116,11 +116,11 @@ stride.subscribe('/collect/commits/subscribe').then(({status, stream}) => {
 })
 ```
 
-If the server returns any status code other than 200, `stream` will be null
+If the server returns any status code other than 200, `stream` will be `null`:
 
 ```js
 stride.subscribe('/collect/commits/subscribe').then(({status, stream}) => {
-  // status: 400
+  // status: 404
   // stream: null
 })
 ```
