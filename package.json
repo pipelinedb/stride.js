@@ -1,0 +1,39 @@
+{
+  "name": "stride.js",
+  "version": "1.0.0",
+  "description": "Stride.io JavaScript API client",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --require test/environment.js test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pipelinedb/stride.js.git"
+  },
+  "keywords": [
+    "stride",
+    "pipelinedb",
+    "realtime"
+  ],
+  "author": "PipelineDB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pipelinedb/stride.js/issues"
+  },
+  "homepage": "https://github.com/pipelinedb/stride.js#readme",
+  "dependencies": {
+    "es6-promisify": "^5.0.0",
+    "hyperquest": "^2.1.0",
+    "js-base64": "^2.1.9",
+    "lodash": "^4.16.2",
+    "request": "^2.75.0",
+    "through2": "^2.0.1"
+  },
+  "devDependencies": {
+    "app-module-path": "^2.0.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0"
+  }
+}
