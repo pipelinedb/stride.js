@@ -156,6 +156,7 @@ const SupportedURLPatterns = {
     /^\/collect\/[a-zA-Z]\w*$/,
     /^\/process$/,
     /^\/process\/[a-zA-Z]\w*$/,
+    /^\/process\/[a-zA-Z]\w*\/stats$/,
     /^\/analyze$/,
     /^\/analyze\/[a-zA-Z]\w*$/,
     /^\/analyze\/[a-zA-Z]\w*\/results$/
@@ -173,8 +174,8 @@ const SupportedURLPatterns = {
     /^\/analyze\/[a-zA-Z]\w*$/
   ],
   GET_STREAM: [
-    /^\/collect\/[a-zA-Z]\w*\/subscribe$/,
-    /^\/process\/[a-zA-Z]\w*\/subscribe$/
+    /^\/collect\/[a-zA-Z]\w*\/subscribe(\?sample=[0-9]+)?$/,
+    /^\/process\/[a-zA-Z]\w*\/subscribe(\?sample=[0-9]+)?$/
   ]
 }
 
