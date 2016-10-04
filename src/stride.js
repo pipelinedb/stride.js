@@ -6,6 +6,7 @@ const promisify = require('es6-promisify')
 const through2 = require('through2')
 const hyperquest = require('hyperquest')
 const request = promisify(require('request'), {multiArgs: true})
+const version = require('root-require')('package.json').version
 
 const defaultOptions = {
   baseURL: 'https://api.stride.io',
@@ -97,6 +98,7 @@ class Stride {
 
   _getHeaders () {
     return {
+      'User-Agent': `stride.js (version: ${version})`,
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': `Basic ${this.base64Token}`

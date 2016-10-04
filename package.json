@@ -27,6 +27,7 @@
     "js-base64": "^2.1.9",
     "lodash": "^4.16.2",
     "request": "^2.75.0",
+    "root-require": "^0.3.1",
     "through2": "^2.0.1"
   },
   "devDependencies": {
