@@ -19,7 +19,7 @@ stride.post('/collect/mydata', {some: 'data', ...}).then(({status, response}) =>
 })
 ```
 
-There are four main methods: `get`, `post`, `delete`, `subscribe`. Generally, each method returns a `Promise` and follows the signature:
+There are a few main methods: `get`, `post`, `put`, `delete`, `subscribe`. Generally, each method returns a `Promise` and follows the signature:
 
 ```js
 stride.method(url, [data]).then(({status, [response], [stream]}) => {
@@ -58,6 +58,21 @@ let commit = {
   "sha1": "690e6814144a174d38ff501c5d89bfff5ff8d6de"
 }
 stride.post('/collect/commits', commit).then(({status, response}) => {
+  // status: 200,
+  // response: {status: 'ok'}
+})
+```
+
+## put()
+
+* `url` - Endpoint to `PUT` to
+* `data` - data to post to server
+
+```js
+let newQuery = {
+  "query": "SELECT * FROM my_process",
+}
+stride.put('/analyze/a_query_name', newQuery).then(({status, response}) => {
   // status: 200,
   // response: {status: 'ok'}
 })
