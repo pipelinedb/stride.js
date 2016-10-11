@@ -124,6 +124,7 @@ function SubscribeObjectTransform() {
 }
 
 function validateURLForMethod (method, url) {
+  url = url.split('?')[0]
   let error = validateURL(url)
   if (error) return error
 
@@ -183,8 +184,8 @@ const SupportedURLPatterns = {
     /^\/analyze\/[a-zA-Z]\w*$/
   ],
   GET_STREAM: [
-    /^\/collect\/[a-zA-Z]\w*\/subscribe(\?sample=[0-9]+)?$/,
-    /^\/process\/[a-zA-Z]\w*\/subscribe(\?sample=[0-9]+)?$/
+    /^\/collect\/[a-zA-Z]\w*\/subscribe$/,
+    /^\/process\/[a-zA-Z]\w*\/subscribe$/
   ]
 }
 

@@ -37,12 +37,15 @@ describe("Stride.js", function () {
       expect(validate('GET', '/analyze')).not.to.throw()
       expect(validate('GET', '/analyze/abc')).not.to.throw()
       expect(validate('GET', '/analyze/abc/results')).not.to.throw()
+      expect(validate('GET', '/analyze/abc/results?start_date=something')).not.to.throw()
 
       expect(validate('POST', '/collect')).not.to.throw()
       expect(validate('POST', '/collect/abc')).not.to.throw()
       expect(validate('POST', '/process/abc')).not.to.throw()
       expect(validate('POST', '/analyze')).not.to.throw()
       expect(validate('POST', '/analyze/abc')).not.to.throw()
+
+      expect(validate('PUT', '/analyze/abc')).not.to.throw()
 
       expect(validate('DELETE', '/collect')).to.throw(/URL not supported/)
       expect(validate('DELETE', '/collect/abc')).not.to.throw()
