@@ -28,6 +28,10 @@ class Stride {
     return this._callAPIMethod('POST', url, data)
   }
 
+  put (url, data) {
+    return this._callAPIMethod('PUT', url, data)
+  }
+
   delete (url) {
     return this._callAPIMethod('DELETE', url)
   }
@@ -168,6 +172,9 @@ const SupportedURLPatterns = {
     /^\/collect\/[a-zA-Z]\w*$/,
     /^\/process\/[a-zA-Z]\w*$/,
     /^\/analyze$/,
+    /^\/analyze\/[a-zA-Z]\w*$/
+  ],
+  PUT: [
     /^\/analyze\/[a-zA-Z]\w*$/
   ],
   DELETE: [

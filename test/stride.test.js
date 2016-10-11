@@ -124,6 +124,33 @@ describe("Stride.js", function () {
     })
   })
 
+  describe("put()", function () {
+    let postData
+    beforeEach(function () {
+      postData = {my: 'data', turtles: 'yep'}
+    })
+
+    it("puts successfully", function () {
+      return stride.put('/analyze/success', postData).then((result) => {
+        let status = result.status, res = result.response
+        expect(status).to.equal(200)
+        expect(res.req.body).to.eql(postData)
+        expect(res.req.method).to.equal('PUT')
+        expect(res.req.headers['accept']).to.equal('application/json')
+        expect(res.req.headers['content-type']).to.equal('application/json')
+        expect(res.req.headers.authorization).to.equal(`Basic ${stride.base64Token}`)
+      })
+    })
+
+    it("handles an error response", function () {
+      return stride.post('/collect/error').then((result) => {
+        let status = result.status, res = result.response
+        expect(status).to.equal(400)
+        expect(res).to.eql({message: 'bad request'})
+      })
+    })
+  })
+
   describe("subscribe()", function () {
     it("subscribes to events until the server closes the connection", function (done) {
       stride.subscribe('/collect/success/subscribe').then((result) => {

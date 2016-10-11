@@ -64,6 +64,25 @@ let Routes = {
   '/v1/collect/error/subscribe': function (req, res) {
     res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' })
     res.end(`\n`)
+  },
+
+  '/v1/analyze/success': function (req, res) {
+    getBody(req).then((body) => {
+      // Pass request things back so the tests can verify them
+      let out = {status: 'ok', req: {
+        body,
+        method: req.method,
+        headers: req.headers
+      }}
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' })
+      res.end(`${JSON.stringify(out)}\n`)
+    })
+  },
+
+  '/v1/analyze/error': function (req, res) {
+    let out = {message: 'bad request'}
+    res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' })
+    res.end(`${JSON.stringify(out)}\n`)
   }
 }
 
