@@ -173,7 +173,8 @@ const SupportedURLPatterns = {
     /^\/collect\/[a-zA-Z]\w*$/,
     /^\/process\/[a-zA-Z]\w*$/,
     /^\/analyze$/,
-    /^\/analyze\/[a-zA-Z]\w*$/
+    /^\/analyze\/[a-zA-Z]\w*$/,
+    /^\/analyze\/[a-zA-Z]\w*\/results$/
   ],
   PUT: [
     /^\/analyze\/[a-zA-Z]\w*$/

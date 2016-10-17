@@ -44,6 +44,7 @@ describe("Stride.js", function () {
       expect(validate('POST', '/process/abc')).not.to.throw()
       expect(validate('POST', '/analyze')).not.to.throw()
       expect(validate('POST', '/analyze/abc')).not.to.throw()
+      expect(validate('POST', '/analyze/abc/results')).not.to.throw()
 
       expect(validate('PUT', '/analyze/abc')).not.to.throw()
 
