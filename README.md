@@ -1,6 +1,7 @@
 # stride.js
 
-[![CircleCI](https://circleci.com/gh/pipelinedb/stride.js.svg?style=svg)](https://circleci.com/gh/pipelinedb/stride.js)
+[![CircleCI](https://circleci.com/gh/pipelinedb/stride.js.svg?style=shield)](https://circleci.com/gh/pipelinedb/stride.js)
+[![npm version](https://badge.fury.io/js/%40pipelinedb%2Fstride.svg)](https://badge.fury.io/js/%40pipelinedb%2Fstride)
 
 Welcome to the JavaScript client for Stride.
 
