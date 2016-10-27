@@ -60,7 +60,7 @@ let commit = {
 }
 stride.post('/collect/commits', commit).then(({status, response}) => {
   // status: 200,
-  // response: {status: 'ok'}
+  // response: null
 })
 ```
 
@@ -75,7 +75,7 @@ let newQuery = {
 }
 stride.put('/analyze/a_query_name', newQuery).then(({status, response}) => {
   // status: 200,
-  // response: {status: 'ok'}
+  // response: null
 })
 ```
 
@@ -86,7 +86,7 @@ stride.put('/analyze/a_query_name', newQuery).then(({status, response}) => {
 ```js
 stride.delete('/collect/commits').then(({status, response}) => {
   // status: 200,
-  // response: {status: 'ok'}
+  // response: null
 })
 ```
 
