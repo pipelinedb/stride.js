@@ -118,7 +118,7 @@ function SubscribeObjectTransform() {
         try {
           obj = JSON.parse(obj)
         } catch(e) {
-          return
+          return console.error(e)
         }
         if (obj && typeof obj === 'object') this.push(obj)
       }
