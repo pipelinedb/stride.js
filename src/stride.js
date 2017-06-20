@@ -115,7 +115,11 @@ function SubscribeObjectTransform() {
     let objects = chunk.toString('utf8').trim().split('\r\n')
     for (let obj of objects) {
       if (obj = obj.trim()) {
-        obj = JSON.parse(obj)
+        try {
+          obj = JSON.parse(obj)
+        } catch(e) {
+          return console.error(e)
+        }
         if (obj && typeof obj === 'object') this.push(obj)
       }
     }
