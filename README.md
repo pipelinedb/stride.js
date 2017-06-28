@@ -11,7 +11,7 @@ JavaScript client for [Stride](https://www.stride.io/docs)
 npm install --save @pipelinedb/stride
 ```
 
-Then in your project:
+Then in your project, you just need to instantiate a `Stride` instance using one of your [API keys](https://www.stride.io/docs#security):
 
 ```js
 const Stride = require('@pipelinedb/stride')
