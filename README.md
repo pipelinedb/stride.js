@@ -16,7 +16,7 @@ Then in your project, you just need to instantiate a `Stride` instance using one
 ```js
 const Stride = require('@pipelinedb/stride')
 
-let stride = new Stride('mytoken')
+let stride = new Stride('my_secret_key')
 stride.post('/collect/mydata', {some: 'data', ...}).then(({status, response}) => {
   doStuff()
 })
