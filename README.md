@@ -22,7 +22,9 @@ stride.post('/collect/mydata', {some: 'data', ...}).then(({status, response}) =>
 })
 ```
 
-There are a few main methods: `get`, `post`, `put`, `delete`, `subscribe`. Generally, each method returns a `Promise` and follows the signature:
+# Usage
+
+`stride.js` is a relatively thin wrapper around the [Stride HTTP API](https://www.stride.io/docs). There are a few main methods: `get`, `post`, `put`, `delete`, `subscribe`. Generally, each method returns a `Promise` and follows the signature:
 
 ```js
 stride.method(url, [data]).then(({status, [response], [stream]}) => {
