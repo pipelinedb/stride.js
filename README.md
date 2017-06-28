@@ -3,7 +3,9 @@
 [![CircleCI](https://circleci.com/gh/pipelinedb/stride.js.svg?style=shield)](https://circleci.com/gh/pipelinedb/stride.js)
 [![npm version](https://badge.fury.io/js/%40pipelinedb%2Fstride.svg)](https://badge.fury.io/js/%40pipelinedb%2Fstride)
 
-Welcome to the JavaScript client for Stride.
+JavaScript client for [Stride](https://www.stride.io/docs)
+
+## Install
 
 ```sh
 npm install --save @pipelinedb/stride
