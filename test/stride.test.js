@@ -47,6 +47,7 @@ describe("Stride.js", function () {
       expect(validate('POST', '/analyze/abc/results')).not.to.throw()
 
       expect(validate('PUT', '/analyze/abc')).not.to.throw()
+      expect(validate('PUT', '/process/abc')).not.to.throw()
 
       expect(validate('DELETE', '/collect')).to.throw(/URL not supported/)
       expect(validate('DELETE', '/collect/abc')).not.to.throw()
