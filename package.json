@@ -1,6 +1,6 @@
 {
   "name": "@pipelinedb/stride",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Stride.io JavaScript API client",
   "main": "index.js",
   "scripts": {
