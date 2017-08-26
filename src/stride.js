@@ -7,6 +7,7 @@ const through2 = require('through2')
 const hyperquest = require('hyperquest')
 const request = promisify(require('request'), {multiArgs: true})
 const version = require('root-require')('package.json').version
+const zlib = require('zlib')
 
 const defaultOptions = {
   baseURL: 'https://api.stride.io',
@@ -74,13 +75,21 @@ class Stride {
   }
 
   _getRequestOptions (method, url, body) {
+    let headers = this._getHeaders()
+    // We compress raw events written to /collect
+    let json = true
+    if (body && method == 'POST' && (/^\/collect/.test(url))) {
+      headers['Content-Encoding'] = 'gzip'
+      body = zlib.gzipSync(new Buffer(JSON.stringify(body)))
+      json = false
+    }
     return {
       url,
       body,
       method,
       baseUrl: this._getBaseURL(),
-      json: true,
-      headers: this._getHeaders()
+      json: json,
+      headers: headers
     }
   }
 
